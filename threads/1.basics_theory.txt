@@ -6,7 +6,14 @@
 - A Thread can create other Threads, other Threads can create more Threads
 - A point where new thread is created is called Fork point
 - Parent Thread, Child Thread
-
+--------------------------------------------------------------------------------------------------------------------------
 -compile on Ubuntu using:
  * gcc -o hello_threads hello_threads.c -lpthread
-
+--------------------------------------------------------------------------------------------------------------------------
+-Racing Condition = After the Fork point, we can not know which thread will start execution first, it depends on the processor. So, when writing 
+program as Developer, you can not assume any fixed order of execution.
+--------------------------------------------------------------------------------------------------------------------------
+- Thread Termination =  Thread fn returns
+			pthread_exit(0)
+			Thread Cancellation(some other thread cancels the thread)
+- If main Thread dies, all other thread dies by default, vice-versa is not true.
