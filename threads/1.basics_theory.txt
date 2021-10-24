@@ -29,5 +29,15 @@ Resource Sharing:
 		(Heap Memory, Sockets,File Descriptors, Global vars, etc)
 		*What threads do not share is stack memory, every thread has its own private stack memory all rest is shared
 ---------------------------------------------------------------------------------------------------------------------------
-Stack Memory menagement:
-	
+Context Switching - Concurrency - Parallelism :
+	-CONTEXT SWITCHING = Transition from one thread to another
+	-CONCURRENCY = Doing two or more different tasks:one at a time, switching between the tasks
+	-PARALLELISM = Doing two or more different tasks IN PARALLEL = in the same tame				
+	-SINGULARISM = Doing two or more different tasks, one task at a time, unil it's finished, then second and so on... ONE BY ONE TASK
+				-------------------------------------------------------------------------------------
+				|TIME TAKEN IN PARALLELISM << TIME TAKEN IN SINGULARISM < TIME TAKEN IN CONCURRENCY|
+				-------------------------------------------------------------------------------------
+	*Concurrency dont give speed it gives progression
+	*Parallelism gives speed and progression but it demands hardware resource
+----------------------------------------------------------------------------------------------------------------------------
+
