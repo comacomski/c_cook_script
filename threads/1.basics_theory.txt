@@ -5,7 +5,7 @@
 - A Thread runs in the context of a process
 - A Thread can create other Threads, other Threads can create more Threads
 - A point where new thread is created is called Fork point
-- Parent Thread, Child Thread
+- Parent Thread and Child Thread only implies that parent thread "made" Child thread(parent thread has no extra privileges)
 --------------------------------------------------------------------------------------------------------------------------
 -compile on Ubuntu using:
  * gcc -o hello_threads hello_threads.c -lpthread
@@ -14,6 +14,20 @@
 program as Developer, you can not assume any fixed order of execution.
 --------------------------------------------------------------------------------------------------------------------------
 - Thread Termination =  Thread fn returns
-			pthread_exit(0)
+			pthread_exit(0)// if we put this in main, main will terminate but child threads will stay alive
 			Thread Cancellation(some other thread cancels the thread)
+			(any thread can cancel any other thread)
 - If main Thread dies, all other thread dies by default, vice-versa is not true.
+--------------------------------------------------------------------------------------------------------------------------
+Resource Sharing:
+	-An OS allocates resources to threads - Memory, CPU, Access to Hardware etc
+	-All threads are siblings, there is no parent-child (having extra privileges) relationship between threads of the same process, no hierarchy
+	-Every thread has its own life-cycle - birth, live and death independent of other threads in the system
+		*Exception: When main thread of a process dies - all other threads of a process are also terminated, vice-versa is not true
+	-Multiple Threads of the processes share same Virtual Address Space of a process
+		*Resource allocated by one thread is visible to rest of the others
+		(Heap Memory, Sockets,File Descriptors, Global vars, etc)
+		*What threads do not share is stack memory, every thread has its own private stack memory all rest is shared
+---------------------------------------------------------------------------------------------------------------------------
+Stack Memory menagement:
+	
