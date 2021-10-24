@@ -1,0 +1,12 @@
+1.What is a Thread - Basics:
+
+- A Thread is a basic unit of execution flow
+- A process has at least one thread -> main thread
+- A Thread runs in the context of a process
+- A Thread can create other Threads, other Threads can create more Threads
+- A point where new thread is created is called Fork point
+- Parent Thread, Child Thread
+
+-compile on Ubuntu using:
+ * gcc -o hello_threads hello_threads.c -lpthread
+
