@@ -1,24 +1,23 @@
 1.What is a Thread - Basics:
 
-- A Thread is a basic unit of execution flow
-- A process has at least one thread -> main thread
-- A Thread runs in the context of a process
-- A Thread can create other Threads, other Threads can create more Threads
-- A point where new thread is created is called Fork point
-- Parent Thread and Child Thread only implies that parent thread "made" Child thread(parent thread has no extra privileges)
---------------------------------------------------------------------------------------------------------------------------
--compile on Ubuntu using:
- * gcc -o hello_threads hello_threads.c -lpthread
---------------------------------------------------------------------------------------------------------------------------
--Racing Condition = After the Fork point, we can not know which thread will start execution first, it depends on the processor. So, when writing 
-program as Developer, you can not assume any fixed order of execution.
---------------------------------------------------------------------------------------------------------------------------
-- Thread Termination =  Thread fn returns
-			pthread_exit(0)// if we put this in main, main will terminate but child threads will stay alive
-			Thread Cancellation(some other thread cancels the thread)
-			(any thread can cancel any other thread)
-- If main Thread dies, all other thread dies by default, vice-versa is not true.
---------------------------------------------------------------------------------------------------------------------------
+		- A Thread is a basic unit of execution flow
+		- A process has at least one thread -> main thread
+		- A Thread runs in the context of a process
+		- A Thread can create other Threads, other Threads can create more Threads
+		- A point where new thread is created is called Fork point
+		- Parent Thread and Child Thread only implies that parent thread "made" Child thread(parent thread has no extra privileges)
+---------------------------------------------------------------------------------------------------------------------------------------
+Compile on Ubuntu using:
+ 			-gcc -o hello_threads hello_threads.c -lpthread
+---------------------------------------------------------------------------------------------------------------------------------------
+Racing Condition = After the Fork point, we can not know which thread will start execution first, it depends on the processor. So, when writing 
+		program as Developer, you can not assume any fixed order of execution.
+---------------------------------------------------------------------------------------------------------------------------------------
+Thread Termination =  	1.Thread fn returns
+			2.pthread_exit(0)// if we put this in main, main will terminate but child threads will stay alive
+			3.Thread Cancellation(some other thread cancels the thread, any thread can cancel any other thread)
+	- If main Thread dies, all other thread dies by default, vice-versa is not true.
+----------------------------------------------------------------------------------------------------------------------------------------
 Resource Sharing:
 	-An OS allocates resources to threads - Memory, CPU, Access to Hardware etc
 	-All threads are siblings, there is no parent-child (having extra privileges) relationship between threads of the same process, no hierarchy
@@ -28,7 +27,7 @@ Resource Sharing:
 		*Resource allocated by one thread is visible to rest of the others
 		(Heap Memory, Sockets,File Descriptors, Global vars, etc)
 		*What threads do not share is stack memory, every thread has its own private stack memory all rest is shared
----------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------
 Context Switching - Concurrency - Parallelism :
 	-CONTEXT SWITCHING = Transition from one thread to another
 	-CONCURRENCY = Doing two or more different tasks:one at a time, switching between the tasks
@@ -39,5 +38,44 @@ Context Switching - Concurrency - Parallelism :
 				-------------------------------------------------------------------------------------
 	*Concurrency dont give speed it gives progression
 	*Parallelism gives speed and progression but it demands hardware resource
-----------------------------------------------------------------------------------------------------------------------------
-
+------------------------------------------------------------------------------------------------------------------------------------------
+Thread = light-weight process:
+				-When a thread is created, it uses almost all pre-existing resources of main-thread, hence OS don't have
+	to work too hard to create an isolated execution environment for a new thread
+										-Page Tables are already setup
+										-Shared Libraries are already loaded
+										-Sockets are already opened
+				-When a thread dies, OS don't need to clean up every resource used by the thread as those resources could
+	be still in use by other threads of the same process(heap memory, sockets...).
+				-Context Switching happens faster from T1 to T2(Thread Switching), where T1 and T2 are threads of the same
+	process, contrary to when T1 and T2 belong to different processes(Process Switching).
+--------------------------------------------------------------------------------------------------------------------------------------------
+Overlapping Work:
+	-If thread T1 is doing work W1 and thread T2 is doing work W2, then W1 and W2 is said to be overlapping if W1 and W2 are operating on
+	the same data.
+	-If the work is overlapping or non-overlapping it decides wheather the threads needs syncronization or not.
+============================================================================================================================================
+Joinable and Detached Threads:
+	A thread when created (pthread_create), it can be created in one of the two modes:
+		1. Joinable Thread:
+			-pthread_join() = We call this function in parent thread, and parent thread waits on that place until the child 
+			 Joinable thread finish it's execution. After the child Joinable thread joins the parent thread, parent thread
+			 continue with it's execution.
+			-Resources of the joinable thread are not released until it joins the parent thread.
+			-A Joinable thread can be converted in to Detached while it is running or vice-versa.
+			-By default thread runs on Joinable mode.
+			-Joinable thread may return result to Joinee (Parent) thread.
+		2. Detached Thread:
+			-All resources of the thread are released immediately when thread terminates
+			-A Detached thread can be converted in to Joinable while it is running or vice-versa.
+			-Detached thread do not return any result to the Parent thread, they work and die without telling anybody
+===========================================================TABLE OF CONTENTS================================================================
+What is a Thread.......................................................................................line 1
+Compile on Ubuntu......................................................................................line 10
+Racing Condition.......................................................................................line 13
+Thread Termination.....................................................................................line 16
+Resource Sharing.......................................................................................line 21
+Context Switching-Concurrency-Parallelism..............................................................line 31
+Thread=light-weight process............................................................................line 42
+Overlapping work.......................................................................................line 53
+============================================================================================================================================

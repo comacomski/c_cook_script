@@ -1,5 +1,6 @@
 /*
  *Compiler : gcc
+ *Description: Basic c program with 1 thread created and string argument passed to it.
  *Author : Mico Antonic
  *
  * compile on Ubuntu using:
