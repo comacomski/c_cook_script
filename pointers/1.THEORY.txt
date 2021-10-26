@@ -1,0 +1,2 @@
+POINTERS:
+	-Pointer is a varible that refers to an address in your computer's memory.
