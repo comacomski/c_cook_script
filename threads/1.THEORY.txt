@@ -65,12 +65,50 @@ Joinable and Detached Threads:
 			-A Joinable thread can be converted in to Detached while it is running or vice-versa.
 			-By default thread runs on Joinable mode.
 			-Joinable thread may return result to Joinee (Parent) thread.
+			-A child Joinable thread upon termination join all the threads which are blocked on pthread_join
+			-Any thread can invoke pthread_join for any other Joinable thread, not just parent thread
+			 (parent can wait for the child, child can wait for the parent...any order)
 		2. Detached Thread:
 			-All resources of the thread are released immediately when thread terminates
 			-A Detached thread can be converted in to Joinable while it is running or vice-versa.
 			-Detached thread do not return any result to the Parent thread, they work and die without telling anybody
+	-When to create Joinable Thread:
+		*Thread is supposed to return some results to other threads
+		*When some threads are interested in being notified of other threads termination
+	-When to create Detached Thread:
+		*No results from Thread are expected
+		*Nobody bother about its death
+		*Thread runs in infinite loop(TCP server, waiting for user input...)
+--------------------------------------------------------------------------------------------------------------------------------------------
+Map-Reduce: Divide and Conquer Paradigm:
+	-Moderator thread splits and create worker threads
+	-Worker threads are called mappers
+	-Mappers work on non-shared data independently
+	-The thread who waits for all workers to finish is reducer thread
+	-Reducer thread build final result
+	-Moderator thread need not to be reducer thread, they can be separate
+============================================================================================================================================
+Inter-Thread Communication:
+	-Communication between threads is preferred trough callbacks/fn pointers:
+		*Very fast
+		*No actual Transfer of data but Transfer of computation
+		*Transfer of Computation is no more than a fn call(through fn ptr)
+		*No special attention required from Kernel, completly run-in user space
+		*Only possible when threads are the part of the SAME process
+--------------------------------------------------------------------------------------------------------------------------------------------
+Transfer of Computation leads to famous architectural Communication Model: 
+							PUBLISHER SUBSCRIBER MODEL
+						   (Also called Notification Chain Model)
+-Publisher Subscriber Model is a pettern of communication which is based on Transfer of Computation
+-Thread which generates the data is called Publisher
+-Thread which own the data processing function is called Subscriber
+-The activity of TOC is called Callback Registration
+-The activity of invoking the fn through pointers by publisher is called Notification
+============================================================================================================================================
+Functions:
+
 ===========================================================TABLE OF CONTENTS================================================================
-What is a Thread.......................................................................................line 1
+*What is a Thread........................................................................................line 1
 Compile on Ubuntu......................................................................................line 10
 Racing Condition.......................................................................................line 13
 Thread Termination.....................................................................................line 16
@@ -78,5 +116,8 @@ Resource Sharing................................................................
 Context Switching-Concurrency-Parallelism..............................................................line 31
 Thread=light-weight process............................................................................line 42
 Overlapping work.......................................................................................line 53
-Joinable and Detached Threads..........................................................................line 58
+*Joinable and Detached Threads..........................................................................line 58
+Map-Reduce.............................................................................................line 83
+*Inter-Thread Communication.............................................................................line 91
+Publisher-Subscriber Model(Notification Chain Model)...................................................line 99
 ============================================================================================================================================
