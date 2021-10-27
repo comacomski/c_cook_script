@@ -1,2 +1,19 @@
 POINTERS:
-	-Pointer is a varible that refers to an address in your computer's memory.
+	-Pointer is a varible that refers to an address in your computer's memory and that is called indirection
+DOUBLE INDIRECTION:
+	-Pointer to a pointer to something
+POINTERS AND STRINGS:
+	char *ptr = "test";//This is not too logical to me, but it is 100% legit, so,
+	printf("%s",ptr);//Not logical too, but it will print "test"
+**Examples in this 2 lines above are the main reason for confusion when it comes to pointers and strings combinations. 
+		from here you can understand array of pointers(array of strings).
+COMMAND LINE ARGUMENTS:
+	-argc = number of string arguments
+	-**argv = pointer to pointer to char (array of strings)
+	-usage ./[NAME_OF_PROGRAM] [string1] [string2] ...
+GENERIC POINTER:
+	- void ptr;
+	-We can "give" to it address of any data type but we can not increment/decrement it, or show the value on that address, for that
+		we need to cast it to that data type, for example: 
+		printf("%d",*(int *)ptr);//casting to int pointer
+
