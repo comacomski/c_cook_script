@@ -24,5 +24,20 @@ GENERIC POINTER:
 	-We can "give" to it address of any data type but we can not increment/decrement it, or show the value at that address, for that
 		we need to cast it to that data type, for example: 
 		printf("%d",*(int *)ptr);//printing int value on memory location ptr(void pointer casted to int pointer)
+ALLOCATING MEMORY:
+	-malloc([byte_size]);//returns void*; this just allocates memory and leave's junk data in it
+	-calloc([n],[element_size]);//returns void*, n = number of elements; this initialize memory with 0's
+	-realloc([ptr],[new_size]);//change the size of already allocated memory
+	-free([ptr]);//frees the allocated memory with malloc or calloc
+	*This is dynamicly allocated memory on HEAP which is part of the RAM memory.
+	-sizeof([anything]);// returns int which represents the size in bytes
+NULL POINTER:
+	-Pointer with the value NULL is considered to be one that does not point to a valid address:
 
 
+
+
+
+
+
+DODATI: RAM STRUCTURE
